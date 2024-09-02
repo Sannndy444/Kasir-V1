@@ -1,5 +1,5 @@
 <?php 
-require 'config.php';
+require '../config.php';
 
 if(isset($_POST['submit'])){
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -65,7 +65,7 @@ if(isset($_POST['submit'])){
             </form>
         </div>
         <div class="extra">
-            Already have account? <a href="">Log In</a>
+            Already have account? <a href="login-page.php">Log In</a>
         </div>
     </div>
 </body>
