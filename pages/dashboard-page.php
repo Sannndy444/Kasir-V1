@@ -1,5 +1,6 @@
 <?php
-require '../config.php';
+require '../config/config.php';
+echo realpath('../process/logout.php');
 
 ?>
 tes
