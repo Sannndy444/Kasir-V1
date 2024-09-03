@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
         if(password_verify($password, $hashed_pass)){
             // Jika password benar, set session untuk login dan ID user
             $_SESSION["login"] = true;
-            $_SESSION["id"] = $row["id"];
+            $_SESSION["users_id"] = $row["users_id"];
             $_SESSION["role"] = $row["role"];
             var_dump($_SESSION);
             header("location: ../pages/dashboard-page.php");

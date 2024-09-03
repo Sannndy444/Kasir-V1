@@ -4,7 +4,8 @@ session_start();
 
 // Memeriksa apakah pengguna memiliki akses ke halaman ini
 if ($_SESSION["role"] !== 'admin') {
-    header("Location: ../pages/login-page.php");
+    echo "<script>alert('Access denied.');</script>";
+    header("Location: ../pages/dashboard-page.php");
     exit;
 }
 

@@ -2,10 +2,10 @@
 require '../config/config.php';
 session_start();
 
-if(isset($_SESSION['id'])) {
+if(isset($_SESSION['users_id'])) {
     if(isset($_POST['submit'])) {
         $ntoko = mysqli_real_escape_string($conn, $_POST['ntoko']);
-        $owid = intval($_SESSION['id']);
+        $owid = intval($_SESSION['users_id']);
 
         
 
@@ -14,7 +14,7 @@ if(isset($_SESSION['id'])) {
             $query = "INSERT INTO stores (store_name, owner_id) VALUES ('$ntoko', '$owid')";
             if (mysqli_query($conn, $query)) {
                 // Redirect menggunakan header
-                header("Location: ../pages/stores-page.php");
+                header("Location: ../pages/dashboard-page.php");
                 exit();
             } else {
                 echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";

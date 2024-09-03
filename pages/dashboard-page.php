@@ -8,11 +8,11 @@ require '../config/config.php';
 var_dump($_SESSION);
 
 // Memeriksa apakah pengguna sudah login dengan memeriksa session ID
-if(!empty($_SESSION["id"])){
-    $id = $_SESSION["id"];
+if(!empty($_SESSION["users_id"])){
+    $id = $_SESSION["users_id"];
     
     // Melakukan query untuk mendapatkan data pengguna berdasarkan ID
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE id = $id");
+    $result = mysqli_query($conn, "SELECT * FROM users WHERE users_id = $id");
     
     // Memeriksa apakah query berhasil dan ada data yang diambil
     if($result && mysqli_num_rows($result) > 0) {
@@ -38,6 +38,7 @@ if(!empty($_SESSION["id"])){
 <body>
     <h2>Welcome to Dashboard, <?php echo $row['username']; ?></h2> <br>
     <a href="addstore-page.php">Add Store</a>
+    <a href="stores-page.php">View Stores</a>
     <a href="../process/logout.php">Log Out</a>
 </body>
 </html>

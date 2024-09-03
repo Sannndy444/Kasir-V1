@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['store_id'])) {
+    echo "<script>alert('Tidak ada toko yang dipilih. Silakan pilih atau buat toko terlebih dahulu.'); window.location.href = '../pages/dashboard-page.php';</script>";
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +17,10 @@
 <body>
     <div class="container">
         <div class="judul">
-            <h2>Dashboard Toko <?php echo $row['store_name']; ?></h2>
+            <h2>Dashboard Toko</h2>
         </div>
         <div class="deskripsi">
-            tes
+            <a href="addproducts-page.php">Tambah Product</a>
         </div>
     </div>
 </body>

@@ -6,7 +6,7 @@ require '../config/config.php';
 session_start();
 
 // Memeriksa apakah pengguna sudah login dengan memeriksa session
-if(!empty($_SESSION["id"])){
+if(!empty($_SESSION["users_id"])){
     // Jika pengguna sudah login, redirect ke halaman dashboard atau halaman lain yang diinginkan
     header("Location: dashboard-page.php");
     exit;
