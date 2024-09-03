@@ -1,5 +1,16 @@
-<?php 
+<?php
+// Memanggil file config untuk koneksi database
 require 'config/config.php';
+
+// Memulai sesi
+session_start();
+
+// Memeriksa apakah pengguna sudah login dengan memeriksa session
+if(!empty($_SESSION["id"])){
+    // Jika pengguna sudah login, redirect ke halaman dashboard atau halaman lain yang diinginkan
+    header("Location: pages/dashboard-page.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

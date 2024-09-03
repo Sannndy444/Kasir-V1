@@ -6,7 +6,7 @@ if(isset($_POST['submit'])){
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = $_POST['pass'];
     $confpass = $_POST['confpass'];
-    $role = 'kasir';
+    $role = $_POST['user_role'];
 
     $duplicate = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' OR email = '$email'");
     if(mysqli_num_rows($duplicate) > 0){

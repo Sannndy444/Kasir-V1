@@ -1,3 +1,18 @@
+<?php
+// Memanggil file config untuk koneksi database
+require '../config/config.php';
+
+// Memulai sesi
+session_start();
+
+// Memeriksa apakah pengguna sudah login dengan memeriksa session
+if(!empty($_SESSION["id"])){
+    // Jika pengguna sudah login, redirect ke halaman dashboard atau halaman lain yang diinginkan
+    header("Location: dashboard-page.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +36,10 @@
                 <input type="password" name="pass" id="pass" required > <br>
                 <label for="confpass">Confirm Password : </label>
                 <input type="password" name="confpass" id="confpass" required> <br>
+                <select name="user_role" id="user_role">
+                    <option value="kasir">User</option>
+                    <option value="admin">Admin Toko</option>
+                </select>
                 <button type="submit" name="submit">Register</button>
             </form>
         </div>

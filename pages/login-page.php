@@ -1,3 +1,18 @@
+<?php
+// Memanggil file config untuk koneksi database
+require '../config/config.php';
+
+// Memulai sesi
+session_start();
+
+// Memeriksa apakah pengguna sudah login dengan memeriksa session
+if(!empty($_SESSION["id"])){
+    // Jika pengguna sudah login, redirect ke halaman dashboard atau halaman lain yang diinginkan
+    header("Location: dashboard-page.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +36,7 @@
             
         </div>
         <div class="extra">
-            Dont have account? <a href="singup-page.php">Sign Up</a>
+            Dont have account? <a href="signup-page.php">Sign Up</a>
         </div>
     </div>
 </body>
