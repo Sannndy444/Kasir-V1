@@ -5,6 +5,8 @@ session_start();
 // Memanggil file config untuk koneksi database
 require '../config/config.php';
 
+var_dump($_SESSION);
+
 // Memeriksa apakah pengguna sudah login dengan memeriksa session ID
 if(!empty($_SESSION["id"])){
     $id = $_SESSION["id"];
@@ -35,6 +37,7 @@ if(!empty($_SESSION["id"])){
 </head>
 <body>
     <h2>Welcome to Dashboard, <?php echo $row['username']; ?></h2> <br>
+    <a href="addstore-page.php">Add Store</a>
     <a href="../process/logout.php">Log Out</a>
 </body>
 </html>

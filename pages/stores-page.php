@@ -8,10 +8,10 @@
 <body>
     <div class="container">
         <div class="judul">
-            <h2>Dashboard Toko</h2>
+            <h2>Dashboard Toko <?php echo $row['store_name']; ?></h2>
         </div>
         <div class="deskripsi">
-            
+            tes
         </div>
     </div>
 </body>

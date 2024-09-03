@@ -19,6 +19,8 @@ if(isset($_POST['submit'])){
             // Jika password benar, set session untuk login dan ID user
             $_SESSION["login"] = true;
             $_SESSION["id"] = $row["id"];
+            $_SESSION["role"] = $row["role"];
+            var_dump($_SESSION);
             header("location: ../pages/dashboard-page.php");
             exit;
         } else {
@@ -28,4 +30,3 @@ if(isset($_POST['submit'])){
         echo "<script>alert('Username Not Registered');</script>";
     }
 }
-?>
