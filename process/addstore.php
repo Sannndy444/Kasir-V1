@@ -13,6 +13,9 @@ if(isset($_SESSION['users_id'])) {
         if(!empty($ntoko)) {
             $query = "INSERT INTO stores (store_name, owner_id) VALUES ('$ntoko', '$owid')";
             if (mysqli_query($conn, $query)) {
+
+                $store_id = mysqli_insert_id($conn);
+                $_SESSION['store_id'] = $store_id;
                 // Redirect menggunakan header
                 header("Location: ../pages/dashboard-page.php");
                 exit();

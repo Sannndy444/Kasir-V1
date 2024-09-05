@@ -1,32 +1,40 @@
 <?php
-session_start();
 require '../config/config.php';
+session_start();
 
-if(isset($_POST['submit'])){
-    $usermail = $_POST["usermail"];
-    $password = $_POST["password"];
+if(isset($_POST['login'])){
+    $usermail = mysqli_real_escape_string($conn,$_POST["usermail"]);
+    $password = mysqli_real_escape_string($conn, $_POST["password"]);
     
     // Query untuk mengambil data user berdasarkan username atau email
-    $query = "SELECT * FROM users WHERE username = '$usermail' OR email = '$usermail'";
+    $query = "SELECT users_id, password,role FROM users WHERE username = '$usermail' OR email = '$usermail'";
     $result = mysqli_query($conn, $query);
 
-    if(mysqli_num_rows($result) > 0){
+    if(mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
         $hashed_pass = $row['password'];
 
-        // Memeriksa apakah password yang dimasukkan sesuai dengan password yang di-hash
         if(password_verify($password, $hashed_pass)){
-            // Jika password benar, set session untuk login dan ID user
-            $_SESSION["login"] = true;
-            $_SESSION["users_id"] = $row["users_id"];
-            $_SESSION["role"] = $row["role"];
-            var_dump($_SESSION);
-            header("location: ../pages/dashboard-page.php");
+            $_SESSION['users_id'] = $row['users_id'];
+            $_SESSION['role'] = $row['role'];
+
+            $user_id = $_SESSION['users_id'];
+            $store_query = "SELECT store_id FROM stores WHERE owner_id = '$user_id'";
+            $store_result = mysqli_query($conn, $store_query);
+
+            if(mysqli_num_rows($store_result) > 0) {
+                $store_row = mysqli_fetch_assoc($store_result);
+                $_SESSION['store_id'] = $store_row['store_id'];
+            } else {
+                $_SESSION['store_id'] = null;
+            }
+
+            header("Location: ../pages/dashboard-page.php");  // Arahkan user setelah login
             exit;
         } else {
-            echo "<script>alert('Wrong Password');</script>";
+            echo "<script>alert('Password salah.'); window.location.href = '../pages/login-page.php';</script>";
         }
     } else {
-        echo "<script>alert('Username Not Registered');</script>";
+        echo "<script>alert('Email tidak ditemukan.'); window.location.href = '../pages/login-page.php';</script>";
     }
 }

@@ -27,9 +27,11 @@ if ($_SESSION["role"] !== 'admin') {
                 <input type="text" name="pname" id="pname" required> <br>
                 <label for="price">Harga Barang : </label>
                 <input type="number" name="price" id="price" required> <br>
-                <label for="img">Upload Gambar : </label>
+                <label for="stock">Stok Barang : </label>
+                <input type="number" name="stock" id="stock"> <br>
+                <label for="img">Upload Gambar : </label> 
                 <input type="file" name="img" id="img" required>
-                <input type="hidden" name="store_id" value="<?= $_SESSION['store_id'];?>">
+                <input type="hidden" name="stores_id" value="<?php echo $_SESSION['store_id'];?>">
                 <button type="submit" name="submit">Tambah</button>
             </form>
         </div>

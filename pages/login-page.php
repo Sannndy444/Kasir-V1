@@ -31,7 +31,7 @@ if(!empty($_SESSION["id"])){
                 <input type="text" name="usermail" id="usermail" require> <br>
                 <label for="password">Passwsord : </label>
                 <input type="password" name="password" id="password" require> <br>
-                <button type="submit" name="submit">Log In</button>
+                <button type="submit" name="login">Log In</button>
             </form>
             
         </div>
