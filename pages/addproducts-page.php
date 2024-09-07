@@ -21,6 +21,10 @@ if ($_SESSION["role"] !== 'admin') {
         <div class="judul">
             <h2>Tambah Barang</h2>
         </div>
+        <div class="link">
+            <a href="stores-page.php">Kembali</a>
+        </div>
+        <hr>
         <div class="addproduct-form">
             <form action="../process/addproducts.php" method="post" enctype="multipart/form-data">
                 <label for="pname">Nama Barang : </label>

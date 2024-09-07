@@ -21,8 +21,10 @@ if (!isset($_SESSION['store_id'])) {
         </div>
         <div class="deskripsi">
             <a href="addproducts-page.php">Tambah Product</a>
+            <a href="addcashier-page.php">Tambah Kasir</a>
             <a href="../process/logout.php">Log Out</a>
         </div>
+        <hr>
         <div class="viewstore">
             <?php include 'product-page.php'; ?>
         </div>
