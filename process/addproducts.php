@@ -7,18 +7,15 @@ if(isset($_POST['submit']) && isset($_SESSION['users_id'])){
     $price = mysqli_real_escape_string($conn, $_POST['price']);
     $stock = mysqli_real_escape_string($conn, $_POST['stock']);
     $store_id = $_SESSION['store_id'];
-
     if(!$store_id) {
         echo "<script>alert('Anda belum memiliki toko. Silakan buat toko terlebih dahulu.'); window.location.href = '../pages/store-page.php';</script>";
         exit;
     }
-
-    // Mengolah upload gambar
+    // upload gambar
     if(isset($_FILES['img']) && $_FILES['img']['error'] === UPLOAD_ERR_OK){
         $image = $_FILES['img']['name'];
         $target_dir = "../uploads/";
         $target_file = $target_dir . basename($image);
-
         // Cek apakah file sudah ada atau ada error
         if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
             $query = "INSERT INTO products (product_name, price, stock, store_id, image) VALUES ('$pname', '$price', '$stock', '$store_id', '$image')";

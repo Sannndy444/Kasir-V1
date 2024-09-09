@@ -31,6 +31,12 @@ include '../process/product.php';
         <?php echo $_SESSION['store_id']; ?> <br>
         <table>
             <tr>
+                <td>Image</td>
+                <td>:</td>
+                <td><img src="../uploads/<?php echo $image; ?>" alt="" width="100rem">
+                    </td>
+            </tr>
+            <tr>
                 <td>Namara Barang</td>
                 <td>:</td>
                 <td><?php echo $pname; ?></td>

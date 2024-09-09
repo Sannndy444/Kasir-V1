@@ -14,12 +14,12 @@ if ($_SESSION["role"] !== 'admin') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Kasir</title>
+    <title>Tambah Akun Kasir</title>
 </head>
 <body>
     <div class="container">
         <div class="judul">
-            <h2>Tambah Kasir</h2>
+            <h2>Tambah Akun Kasir</h2>
         </div>
         <div class="link">
             <a href="stores-page.php">Kembali</a>
@@ -31,8 +31,12 @@ if ($_SESSION["role"] !== 'admin') {
                 <input type="text" name="unameC" id="unameC" required> <br>
                 <label for="emailC">Email Kasir : </label>
                 <input type="email" name="emailC" id="emailC" required> <br>
+                <label for="passC">Password Kasir : </label>
+                <input type="password" name="passC" id="passC" required> <br>
+                <label for="conpassC">Konfirmasi Password : </label>
+                <input type="password" name="conpassC" id="conpassC" required> <br>
                 <input type="hidden" name="store_id" value="<?php echo $store_id ?>">
-                <button type="submit" name="submit" id="submit">Tambah Kasir</button>
+                <button type="submit" name="submit" id="submit">Buat</button>
             </form>
         </div>
     </div>

@@ -36,10 +36,6 @@ if(!empty($_SESSION["users_id"])){
                 <input type="password" name="pass" id="pass" required > <br>
                 <label for="confpass">Confirm Password : </label>
                 <input type="password" name="confpass" id="confpass" required> <br>
-                <select name="user_role" id="user_role">
-                    <option value="kasir">User</option>
-                    <option value="admin">Admin Toko</option>
-                </select>
                 <button type="submit" name="submit">Register</button>
             </form>
         </div>
