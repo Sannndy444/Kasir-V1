@@ -20,7 +20,7 @@ if(isset($_POST['submit']) && isset($_SESSION['users_id'])){
         if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
             $query = "INSERT INTO products (product_name, price, stock, store_id, image) VALUES ('$pname', '$price', '$stock', '$store_id', '$image')";
             if (mysqli_query($conn, $query)) {
-                echo "<script>alert('Produk berhasil ditambahkan!'); window.location.href = '../pages/products-page.php';</script>";
+                echo "<script>alert('Produk berhasil ditambahkan!'); window.location.href = '../pages/stores-page.php';</script>";
             } else {
                 echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
             }

@@ -5,6 +5,8 @@ if (!isset($_SESSION['store_id'])) {
     echo "<script>alert('Tidak ada toko yang dipilih. Silakan pilih atau buat toko terlebih dahulu.'); window.location.href = '../pages/dashboard-page.php';</script>";
     exit;
 }
+
+
 ?>
 
 <!DOCTYPE html>

@@ -3,7 +3,7 @@ require '../config/config.php';
 session_start();
 
 // Memeriksa apakah pengguna memiliki akses ke halaman ini dan merupakan admin
-if ($_SESSION["role"] !== 'admin') {
+if ($_SESSION["role"] !== 'admin' && $_SESSION["role"] !== 'kasir') {
     echo "<script>alert('Access denied.'); window.location.href = '../pages/stores-page.php';</script>";
     exit;
 } 
