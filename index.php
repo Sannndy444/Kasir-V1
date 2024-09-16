@@ -22,7 +22,6 @@ if(!empty($_SESSION["id"])){
 </head>
 <body>
     hello word 
-
     <a href="pages/login-page.php">
         log in
     </a>

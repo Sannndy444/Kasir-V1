@@ -43,13 +43,13 @@ include '../process/product.php';
                 // Tampilkan data produk
                 while ($product = mysqli_fetch_assoc($product_result)) {
                     echo '<tr>';
-                    echo    '<td><img src="../uploads/' . $product['image'] . '" alt="" width="100rem"></td>';
+                    echo    '<td><img src="../uploads/' . $product['image'] . '" alt="" width="100rem" height="100rem" overflow="hidden"></td>';
                     echo    '<td>' . $product['product_name'] . '</td>';
                     echo    '<td>' . $product['price'] . '</td>';
                     echo    '<td>' . $product['stock'] . '</td>';
                     echo    '<td>
-                            <a href="edit-product.php?product_id=' . $product['product_id'] . '">Edit</a> | 
-                            <a href="delete-product.php?product_id=' . $product['product_id'] . '">Delete</a>
+                            <a href="editproduct-page.php?product_id=' . $product['product_id'] . '">Edit</a>
+                            <a href="../process/deleteproduct.php?product_id=' . $product['product_id'] . '" onclick="return confirm(\'Apakah Anda yakin ingin menghapus produk ini?\')">Delete</a>
                             </td>';
                     echo '</tr>';
                 }
