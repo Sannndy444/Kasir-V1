@@ -1,14 +1,3 @@
-<?php
-require '../config/config.php';
-session_start();
-
-// Memeriksa apakah pengguna memiliki akses ke halaman ini dan merupakan admin
-if ($_SESSION["role"] !== 'admin' && $_SESSION["role"] !== 'kasir') {
-    echo "<script>alert('Access denied.'); window.location.href = '../pages/stores-page.php';</script>";
-    exit;
-} 
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,10 +18,12 @@ if ($_SESSION["role"] !== 'admin' && $_SESSION["role"] !== 'kasir') {
             <form action="../process/addproducts.php" method="post" enctype="multipart/form-data">
                 <label for="pname">Nama Barang : </label>
                 <input type="text" name="pname" id="pname" required> <br>
-                <label for="price">Harga Barang : </label>
-                <input type="number" name="price" id="price" required> <br>
+                <label for="original_price">Harga Asli : </label>
+                <input type="number" name="original_price" id="original_price" step="0.01" required> <br>
+                <label for="selling_price">Harga Jual : </label>
+                <input type="number" name="selling_price" id="selling_price" step="0.01" required> <br>
                 <label for="stock">Stok Barang : </label>
-                <input type="number" name="stock" id="stock"> <br>
+                <input type="number" name="stock" id="stock" required> <br>
                 <label for="img">Upload Gambar : </label> 
                 <input type="file" name="img" id="img" required>
                 <input type="hidden" name="stores_id" value="<?php echo $_SESSION['store_id'];?>">
