@@ -21,9 +21,16 @@ if(!empty($_SESSION["id"])){
     <title>Kasir Simpel</title>
 </head>
 <body>
-    hello word 
-    <a href="pages/login-page.php">
-        log in
-    </a>
+    <div class="container">
+        <div class="nav">
+            
+        </div>
+        <div class="head">
+            <h2>
+                Welcome To Kasir Simple App
+            </h2>
+        </div>
+        
+    </div>
 </body>
 </html>
