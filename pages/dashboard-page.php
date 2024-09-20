@@ -58,6 +58,9 @@ var_dump($_SESSION);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
+    <!-- My style -->
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <h2>Welcome to Dashboard, <?php echo $row['username']; ?></h2> <br>
