@@ -1,0 +1,63 @@
+body {
+    display: flex; /* Menggunakan flexbox untuk menata konten */
+    margin: 0; /* Menghilangkan margin default */
+}
+
+.sidebar {
+    width: 250px; /* Lebar sidebar */
+    height: 100vh; /* Tinggi penuh viewport */
+    background-color: #333; /* Warna latar belakang */
+    color: white; /* Warna teks */
+    padding: 20px; /* Ruang dalam */
+    position: fixed; /* Agar sidebar tetap di posisi saat scroll */
+    left: -1rem;
+}
+
+.sidebar a {
+    color: white; /* Warna tautan */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    display: block; /* Agar tautan mengisi seluruh lebar */
+    padding: 10px 15px; /* Ruang dalam untuk tautan */
+    border-radius: 5px; /* Membuat sudut sedikit melengkung */
+    transition: background-color 0.3s; /* Efek transisi saat hover */
+}
+
+.sidebar a:hover {
+    background-color: #555; /* Warna latar belakang saat hover */
+}
+
+/* Sidebar hidden */
+.sidebar.active {
+    transform: translateX(-100%);
+}
+
+/* Icon before the text */
+.sidebar a i {
+    margin-right: 1rem;
+}
+
+/* Toggle button */
+.toggle-btn {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* Hide sidebar for smaller screens by default */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+}

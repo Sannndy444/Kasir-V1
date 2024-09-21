@@ -49,7 +49,7 @@ if (!empty($_SESSION["users_id"])) {
     exit;
 }
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
 ?>
 <!DOCTYPE html>
@@ -63,11 +63,16 @@ var_dump($_SESSION);
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h2>Welcome to Dashboard, <?php echo $row['username']; ?></h2> <br>
-    <a href="addstore-page.php">Add Store</a>
-    <a href="transaction-page.php">Transaction</a>
-    <a href="financialreport-page.php">Financial Report</a>
-    <a href="stores-page.php">View Stores</a>
-    <a href="../process/logout.php">Log Out</a>
+    <div class="container">
+        <div class="sidebar">
+            <?php include 'sidebar.php'; ?>
+        </div>
+        <div class="content">
+            <h2>Welcome to Dashboard, <?php echo $row['username']; ?></h2> <br>
+        </div>
+    </div>
+
+
+    
 </body>
 </html>

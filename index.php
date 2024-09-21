@@ -36,6 +36,28 @@ if(!empty($_SESSION["id"])){
 
     <style>
 
+.hidden {
+            top: -100px; /* Tersembunyi di atas layar */
+            transition: top 0.3s;
+        }
+
+        /* Menampilkan navbar */
+        .visible {
+            top: 0; /* Muncul di posisi normal */
+            transition: top 0.3s;
+        }
+
+        /* Menyesuaikan header agar memiliki posisi fixed */
+        .header {
+            /* position: fixed; */
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 999;
+            position: absolute;
+        }
+
         @media only screen and (min-width: 1280px) {
             header {
                 background-color: var(--nav);
@@ -218,7 +240,7 @@ if(!empty($_SESSION["id"])){
             .navB li a {
                 text-decoration: none;
                 color: white;
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
 
             .navB a:hover {
@@ -314,13 +336,15 @@ if(!empty($_SESSION["id"])){
 
 
         }
+
+        
         
         
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="header">
             <div class="navbar">
                 <div class="logo">
                     <img class="logo" src="assets/logo-2.png" alt="">
@@ -330,7 +354,7 @@ if(!empty($_SESSION["id"])){
                         <li><a href="#about">Tentang Kami</a></li>
                         <li><a href="#fitur">Fitur Kami</a></li>
                         <li><a href="#contact">Hubungi Kami</a></li>
-                        <li><a href="#join">SingUp</a></li>
+                        <li><a href="#join">SignUp</a></li>
                     </ul>
                 </div>
                 <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
