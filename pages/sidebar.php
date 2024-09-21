@@ -17,7 +17,7 @@
             left: 0;
             width: 60px; /* Width for the collapsed sidebar */
             height: 100%;
-            background-color: #333;
+            background-color: var(--nav);
             overflow-x: hidden;
             transition: width 0.3s;
         }
@@ -29,19 +29,19 @@
 
         .content {
             transition: margin-left 0.3s;
-            margin-left: 60px; /* Default margin for closed sidebar */
+            /* margin-left: 60px; Default margin for closed sidebar */
             padding: 20px;
             flex-grow: 1;
         }
 
         .content.active {
-            margin-left: 200px; /* Adjust this value to match sidebar width */
+            margin-left: 10rem; /* Adjust this value to match sidebar width */
         }
 
         .sidebar a {
             padding: 7rem 0 0 1.3rem;
             text-decoration: none;
-            color: white;
+            color: var(--third);
             display: flex;
             align-items: center;
         }
@@ -61,8 +61,8 @@
             top: 20px;
             left: 0.5rem; /* Slightly to the right of the sidebar */
             font-size: 1.5rem;
-            background-color: #333;
-            color: white;
+            background-color: var(--nav);
+            color: var(--third);
             border: none;
             padding: 10px;
             cursor: pointer;
@@ -79,7 +79,7 @@
         <a href="../process/logout.php"><i class="fa-solid fa-right-from-bracket"></i><span class="text"> Log Out</span></a>
     </div>
 
-    <button class="toggle-button" onclick="toggleSidebar()">☰</button>
+    <button class="toggle-button" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
 
     <script>
         function toggleSidebar() {
