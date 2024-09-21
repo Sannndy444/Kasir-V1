@@ -68,7 +68,8 @@ if (!empty($_SESSION["users_id"])) {
             <?php include 'sidebar.php'; ?>
         </div>
         <div class="content">
-            <h2>Welcome to Dashboard, <?php echo $row['username']; ?></h2> <br>
+            <h2>Welcome to Dashboard, <?php echo $row['username']; ?></h2>
+            <img src="../assets/1.png" alt="">
         </div>
     </div>
 
