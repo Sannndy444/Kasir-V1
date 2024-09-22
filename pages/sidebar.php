@@ -74,7 +74,8 @@
 <body>
     <div class="sidebar" id="sidebar">
         <a href="dashboard-page.php"><i class="fa-solid fa-house"></i><span class="text"> Home</span></a>
-        <a href="stores-page.php"><i class="fa-solid fa-cart-shopping"></i><span class="text"> My Store</span></a>
+        <a href="stores-page.php"><i class="fa-solid fa-shop"></i><span class="text"> My Store</span></a>
+        <a href="transaction-page.php"><i class="fa-solid fa-cart-shopping"></i><span class="text"> Point of Sale</span></a>
         <a href="financialreport-page.php"><i class="fa-solid fa-clipboard"></i><span class="text"> Financial</span></a>
         <a href="../process/logout.php"><i class="fa-solid fa-right-from-bracket"></i><span class="text"> Log Out</span></a>
     </div>

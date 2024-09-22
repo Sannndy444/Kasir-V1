@@ -354,7 +354,7 @@ if(!empty($_SESSION["id"])){
                         <li><a href="#about">Tentang Kami</a></li>
                         <li><a href="#fitur">Fitur Kami</a></li>
                         <li><a href="#contact">Hubungi Kami</a></li>
-                        <li><a href="#join">SignUp</a></li>
+                        <li><a href="pages/signup-page.php">SignUp</a></li>
                     </ul>
                 </div>
                 <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
@@ -365,7 +365,7 @@ if(!empty($_SESSION["id"])){
         <a href="#about">Tentang Kami</a>
         <a href="#fitur">Fitur Kami</a>
         <a href="#contact">Hubungi Kami</a>
-        <a href="pages/signup-page.php">SingUp</a>
+        <a href="pages/signup-page.php">Sign Up</a>
     </div>
         
         <!-- <div class="head">

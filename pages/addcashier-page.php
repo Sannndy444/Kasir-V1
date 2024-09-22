@@ -17,6 +17,21 @@ if ($_SESSION["role"] !== 'admin') {
     <title>Tambah Akun Kasir</title>
 
     <!-- My style -->
+    <style>
+        :root {
+            --primary: #E3E1D9;
+            --bg: #F2EFE5;
+            --third: #C7C8CC;
+            --nav: #495464;
+            --font: #424242;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
