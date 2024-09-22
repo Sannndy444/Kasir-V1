@@ -10,23 +10,31 @@ require '../config/config.php';
 // Memeriksa apakah pengguna sudah login dengan memeriksa session ID
 if (!empty($_SESSION["users_id"])) {
     $user_id = $_SESSION["users_id"];
-    $store_id = $_SESSION['store_id'];
     
     // Melakukan query untuk mendapatkan data pengguna berdasarkan ID
     $result = mysqli_query($conn, "SELECT * FROM users WHERE users_id = $user_id");
-    $store = mysqli_query($conn, "SELECT store_id FROM stores WHERE store_id = '$store_id'");
     
     // Memeriksa apakah query berhasil dan ada data yang diambil
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
+        // Ambil store_id dari session
+        $store_id = $_SESSION['store_id'] ?? null;
+
+        // Memeriksa apakah store_id ada
+        if (empty($store_id)) {
+            // Arahkan ke halaman untuk menambahkan toko
+            header("Location: addstore-page.php");
+            exit();
+        }
+
         // Menentukan query berdasarkan peran user
         $store_query = "";
         if ($row['role'] === 'admin') {
-            // Jika user adalah owner, cari store_id berdasarkan owner_id
+            // Jika user adalah admin, cari store_id berdasarkan owner_id
             $store_query = "SELECT store_id FROM stores WHERE owner_id = '$user_id'";
         } elseif ($row['role'] === 'kasir') {
-            // Jika user adalah kasir, cari store_id berdasarkan cashier_id di tabel cashiers
+            // Jika user adalah kasir, cari store_id berdasarkan store_id di session
             $store_query = "SELECT store_id FROM stores WHERE store_id = '$store_id'";
         }
 
@@ -36,17 +44,21 @@ if (!empty($_SESSION["users_id"])) {
             if ($store_result && mysqli_num_rows($store_result) > 0) {
                 $store_row = mysqli_fetch_assoc($store_result);
                 $_SESSION['store_id'] = $store_row['store_id'];
+            } else {
+                // Jika tidak ada store yang ditemukan, arahkan ke halaman untuk menambahkan toko
+                header("Location: addstore-page.php");
+                exit();
             }
         }
     } else {
         // Jika query gagal atau tidak ada data, redirect ke halaman login
         header("Location: login-page.php");
-        exit;
+        exit();
     }
 } else {
     // Jika session ID tidak ada, redirect ke halaman login
     header("Location: login-page.php");
-    exit;
+    exit();
 }
 
 // var_dump($_SESSION);

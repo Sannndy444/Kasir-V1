@@ -19,7 +19,8 @@ if(isset($_POST['submit']) && isset($_SESSION['users_id'])){
         $target_file = $target_dir . basename($image);
         // Cek apakah file sudah ada atau ada error
         if (move_uploaded_file($_FILES['img']['tmp_name'], $target_file)) {
-            $query = "INSERT INTO products (product_name, original_price, selling_price, stock, store_id, image) VALUES ('$pname', '$original_price', '$selling_price', '$stock', '$store_id', '$image')";
+            $query = "INSERT INTO products (product_name, original_price, selling_price, stock, store_id, image, price) 
+            VALUES ('$pname', '$original_price', '$selling_price', '$stock', '$store_id', '$image', '$selling_price')";
             if (mysqli_query($conn, $query)) {
                 echo "<script>alert('Produk berhasil ditambahkan!'); window.location.href = '../pages/stores-page.php';</script>";
             } else {
