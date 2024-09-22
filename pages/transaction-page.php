@@ -26,47 +26,203 @@ $product_result = mysqli_query($conn, $product_query);
     <!-- My style -->
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        .product-item {
-            display: inline-block;
-            margin: 10px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
+        :root {
+            --primary: #E3E1D9;
+            --bg: #F2EFE5;
+            --third: #C7C8CC;
+            --nav: #495464;
+            --font: #424242;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins';
+            color: #fff;
+            background-color: var(--bg);
+            overflow-x: hidden;
+        }
+
+        .tra-container {
+            display: flex;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--nav);
+            margin-left: 60px;
+        }
+
+        .content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--font);
+        }
+
+        .judul h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--font);
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .product-item {
+            width: 150px;
+            background-color: var(--bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            box-shadow: var(--nav);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-item p {
+            margin: 5px 0;
+            color: var(--font);
+        }
+
+        .product-item p:first-child {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+
+
         #transaction-list {
-            margin-top: 20px;
+            background-color: var(--nav);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        #transaction-items {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+
+        #transaction-items li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--nav);
+            font-size: 14px;
+        }
+
+        #transaction-items li:last-child {
+            border-bottom: none;
+        }
+
+        #transaction-items button {
+            background-color: transparent;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 1rem;
+            padding-left: 10px;
+        }
+
+        #transaction-items button:hover {
+            text-decoration: underline;
+        }
+
+        #total-price {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        #customer-name {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .checkout {
+            background-color: #6EC207;
+            color: var(--primary);
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout:hover {
+            background-color: var(--nav);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Products</h2>
-        <div class="products">
-            <?php
-            // Tampilkan data produk
-            if (mysqli_num_rows($product_result) > 0) {
-                while ($product = mysqli_fetch_assoc($product_result)) {
-                    echo '<div class="product-item" onclick="addToTransaction(' . $product['product_id'] . ', \'' . $product['product_name'] . '\', ' . $product['price'] . ')">';
-                    echo '<img src="../uploads/' . $product['image'] . '" alt="' . $product['product_name'] . '" width="100px" height="100px">';
-                    echo '<p>' . $product['product_name'] . '</p>';
-                    echo '<p>Price: ' . $product['price'] . '</p>';
-                    echo '</div>';
+    <div class="tra-container">
+        <div class="sidebar">
+            <?php include 'sidebar.php'; ?>
+        </div>
+        <div class="content">
+            <div class="judul">
+                <h2>Point Of Sale</h2>
+            </div>
+            <div class="products">
+                <?php
+                // Tampilkan data produk
+                if (mysqli_num_rows($product_result) > 0) {
+                    while ($product = mysqli_fetch_assoc($product_result)) {
+                        echo '<div class="product-item" onclick="addToTransaction(' . $product['product_id'] . ', \'' . $product['product_name'] . '\', ' . $product['price'] . ')">';
+                        echo '<img src="../uploads/' . $product['image'] . '" alt="' . $product['product_name'] . '" width="100px" height="100px">';
+                        echo '<p>' . $product['product_name'] . '</p>';
+                        echo '<p>Price: ' . $product['price'] . '</p>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo 'No products available.';
                 }
-            } else {
-                echo 'No products available.';
-            }
-            ?>
-        </div>
+                ?>
+            </div>
 
-        <h2>Transaction List</h2>
-        <div id="transaction-list">
-            <input type="text" id="customer-name" placeholder="Enter customer name">
-            <ul id="transaction-items"></ul>
-            <p>Total: <span id="total-price">0</span></p>
-            <button onclick="checkout()">Checkout</button>
-        </div>
+            <h2>Transaction List</h2>
+                <div id="transaction-list">
+                    <input type="text" id="customer-name" placeholder="Enter customer name">
+                    <ul id="transaction-items"></ul>
+                    <p>Total: <span id="total-price">0</span></p>
+                    <button class="checkout" onclick="checkout()">Checkout</button>
+                </div>
+            </div>
     </div>
 
     <script>
