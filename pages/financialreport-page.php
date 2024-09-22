@@ -54,108 +54,225 @@ $stock_result = mysqli_query($conn, $stock_query);
     <title>Financial Report</title>
 
     <!-- My style -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <!-- <link rel="stylesheet" href="../css/styles.css"> -->
     <style>
+        :root {
+            --primary: #E3E1D9;
+            --bg: #F2EFE5;
+            --third: #C7C8CC;
+            --nav: #495464;
+            --font: #424242;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins';
+            min-height: 2000px;
+            color: #fff;
+            background-color: var(--bg);
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            margin-left: 60px;
+        }
+
+        .content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .judul h2 {
+            color: #5a5a5a;
+            margin-bottom: 20px;
+        }
+
+        .report-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: var(--font);
+        }
+
+        input, select, .filter {
+            padding: 8px 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: calc(33% - 20px);
+        }
+
+        button {
+            background-color: #28a745;
+            color: var(--primary);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--nav);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
         }
-        table, th, td {
-            border: 1px solid black;
-        }
+
         th, td {
-            padding: 10px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            color: var(--font);
             text-align: left;
+        }
+
+        th {
+            background-color: #f7f7f7;
+            font-weight: bold;
+            color: var(--font);
+        }
+
+        td {
+            background-color: var(--primary);
+        }
+
+        h3 {
+            color: var(--font);
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--font);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Financial Report</h2>
+        <div class="sidebar">
+            <?php include 'sidebar.php'; ?> 
+        </div>
+        <div class="content">
+            <div class="judul">
+                <h2>Financial Report</h2>
+            </div>
+            <hr>
+            <div class="report-form">
+                <form method="GET" action="">
+                    <label for="filter">Filter:</label>
+                    <select name="filter" id="filter">
+                        <option value="daily" <?= $filter === 'daily' ? 'selected' : '' ?>>Daily</option>
+                        <option value="weekly" <?= $filter === 'weekly' ? 'selected' : '' ?>>Weekly</option>
+                        <option value="monthly" <?= $filter === 'monthly' ? 'selected' : '' ?>>Monthly</option>
+                        <option value="yearly" <?= $filter === 'yearly' ? 'selected' : '' ?>>Yearly</option>
+                    </select>
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" value="<?= $startDate ?>">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" value="<?= $endDate ?>">
+                    <button class="filter" type="submit">Filter</button>
+                </form>
+
+                <h3>Transactions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>User ID</th>
+                            <th>Total</th>
+                            <th>Created At</th>
+                            <th>Customer ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($transaction = mysqli_fetch_assoc($transaction_result)): ?>
+                            <tr>
+                                <td><?= $transaction['transactions_id'] ?></td>
+                                <td><?= $transaction['user_id'] ?></td>
+                                <td><?= number_format($transaction['total'], 2) ?></td>
+                                <td><?= $transaction['created_at'] ?></td>
+                                <td><?= $transaction['customer_id'] ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+
+                <h3>Stock Logs</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Log Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($stock = mysqli_fetch_assoc($stock_result)): ?>
+                            <tr>
+                                <td><?= $stock['product_name'] ?></td>
+                                <td><?= $stock['quantity'] ?></td>
+                                <td><?= $stock['log_date'] ?></td>
+                                <td><?= $stock['action'] ?></td>
+                            </tr>
+                        <?php endwhile; ?>
+                    </tbody>
+                </table>
+
+                <?php
+                // Hitung keuntungan
+                $profit_query = "SELECT SUM(total) AS total_revenue
+                                    FROM transactions
+                                    WHERE $dateFilter";
+                $profit_result = mysqli_query($conn, $profit_query);
+                $total_revenue = mysqli_fetch_assoc($profit_result)['total_revenue'];
+
+                $cost_query = "SELECT SUM(quantity * price) AS total_cost
+                                FROM transaction_items
+                                WHERE EXISTS (SELECT 1 FROM transactions WHERE transactions_id = transaction_items.transaction_id AND $dateFilter)";
+                $cost_result = mysqli_query($conn, $cost_query);
+                $total_cost = mysqli_fetch_assoc($cost_result)['total_cost'];
+
+                $profit = $total_revenue - $total_cost;
+                ?>
+
+                <h3>Profit Calculation</h3>
+                <p>Total Revenue: <?= number_format($total_revenue, 2) ?></p>
+                <p>Total Cost: <?= number_format($total_cost, 2) ?></p>
+                <!-- <p>Profit: <?= number_format($profit, 2) ?></p> -->
+            </div>
+            
+        </div>
+        
 
         <!-- Form filter -->
-        <form method="GET" action="">
-            <label for="filter">Filter:</label>
-            <select name="filter" id="filter">
-                <option value="daily" <?= $filter === 'daily' ? 'selected' : '' ?>>Daily</option>
-                <option value="weekly" <?= $filter === 'weekly' ? 'selected' : '' ?>>Weekly</option>
-                <option value="monthly" <?= $filter === 'monthly' ? 'selected' : '' ?>>Monthly</option>
-                <option value="yearly" <?= $filter === 'yearly' ? 'selected' : '' ?>>Yearly</option>
-            </select>
-            <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date" value="<?= $startDate ?>">
-            <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date" value="<?= $endDate ?>">
-            <button type="submit">Filter</button>
-        </form>
-
-        <h3>Transactions</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Transaction ID</th>
-                    <th>User ID</th>
-                    <th>Total</th>
-                    <th>Created At</th>
-                    <th>Customer ID</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($transaction = mysqli_fetch_assoc($transaction_result)): ?>
-                    <tr>
-                        <td><?= $transaction['transactions_id'] ?></td>
-                        <td><?= $transaction['user_id'] ?></td>
-                        <td><?= number_format($transaction['total'], 2) ?></td>
-                        <td><?= $transaction['created_at'] ?></td>
-                        <td><?= $transaction['customer_id'] ?></td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-
-        <h3>Stock Logs</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Log Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($stock = mysqli_fetch_assoc($stock_result)): ?>
-                    <tr>
-                        <td><?= $stock['product_name'] ?></td>
-                        <td><?= $stock['quantity'] ?></td>
-                        <td><?= $stock['log_date'] ?></td>
-                        <td><?= $stock['action'] ?></td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-
-        <?php
-        // Hitung keuntungan
-        $profit_query = "SELECT SUM(total) AS total_revenue
-                            FROM transactions
-                            WHERE $dateFilter";
-        $profit_result = mysqli_query($conn, $profit_query);
-        $total_revenue = mysqli_fetch_assoc($profit_result)['total_revenue'];
-
-        $cost_query = "SELECT SUM(quantity * price) AS total_cost
-                        FROM transaction_items
-                        WHERE EXISTS (SELECT 1 FROM transactions WHERE transactions_id = transaction_items.transaction_id AND $dateFilter)";
-        $cost_result = mysqli_query($conn, $cost_query);
-        $total_cost = mysqli_fetch_assoc($cost_result)['total_cost'];
-
-        $profit = $total_revenue - $total_cost;
-        ?>
-
-        <h3>Profit Calculation</h3>
-        <p>Total Revenue: <?= number_format($total_revenue, 2) ?></p>
-        <p>Total Cost: <?= number_format($total_cost, 2) ?></p>
-        <p>Profit: <?= number_format($profit, 2) ?></p>
+        
     </div>
 </body>
 </html>
