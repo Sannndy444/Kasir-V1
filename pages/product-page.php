@@ -76,7 +76,7 @@ include '../process/product.php';
         .tabel-product th, .tabel-product td {
             border: 1px solid #ddd;
             padding: 10px;
-            text-align: left;
+            /* text-align: left; */
         }
 
         .tabel-product th {
@@ -98,6 +98,34 @@ include '../process/product.php';
 
         .tabel-product a:hover {
             text-decoration: underline;
+        }
+
+        .tabel-product a {
+            text-decoration: none;
+        }
+
+        .tabel-product .edit-btn {
+            background-color: var(--nav);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 1rem 1rem 1rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .tabel-product .del-btn {
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 1rem 1rem 1rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .tabel-product button:hover {
+            background-color: var(--font);
         }
 
         @media (max-width: 600px) {
@@ -134,8 +162,8 @@ include '../process/product.php';
                         echo    '<td>' . $product['price'] . '</td>';
                         echo    '<td>' . $product['stock'] . '</td>';
                         echo    '<td>
-                                <a href="editproduct-page.php?product_id=' . $product['product_id'] . '">Edit</a>
-                                <a href="../process/deleteproduct.php?product_id=' . $product['product_id'] . '" onclick="return confirm(\'Apakah Anda yakin ingin menghapus produk ini?\')">Delete</a>
+                                <a href="editproduct-page.php?product_id=' . $product['product_id'] . '"><button class="edit-btn">Edit</button></a>
+                                <a href="../process/deleteproduct.php?product_id=' . $product['product_id'] . '" onclick="return confirm(\'Apakah Anda yakin ingin menghapus produk ini?\')"><button class="del-btn">Delete</button></a>
                                 </td>';
                         echo '</tr>';
                     }
