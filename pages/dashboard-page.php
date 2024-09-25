@@ -140,7 +140,7 @@ if (!empty($_SESSION["users_id"])) {
                 width: 45rem;
                 position: absolute;
                 z-index: -1;
-                top: 23rem;
+                top: 18rem;
                 right: 1rem;
             }
         }
@@ -199,12 +199,12 @@ if (!empty($_SESSION["users_id"])) {
             }
 
             h2 {
-                font-size: 4rem;
-                padding: 5rem 0 0 8rem;
+                font-size: 3rem;
+                padding: 1rem 0 0 7rem;
             }
             img {
                 position: absolute;
-                width: 35rem;
+                width: 25rem;
                 top: 30rem;
                 right: 1rem;
             }

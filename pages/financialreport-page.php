@@ -223,56 +223,41 @@ $stock_result = mysqli_query($conn, $stock_query);
                     </tbody>
                 </table>
 
-                <h3>Stock Logs</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Log Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($stock = mysqli_fetch_assoc($stock_result)): ?>
-                            <tr>
-                                <td><?= $stock['product_name'] ?></td>
-                                <td><?= $stock['quantity'] ?></td>
-                                <td><?= $stock['log_date'] ?></td>
-                                <td><?= $stock['action'] ?></td>
-                            </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
-
                 <?php
                 // Hitung keuntungan
-                $profit_query = "SELECT SUM(total) AS total_revenue
-                                    FROM transactions
-                                    WHERE $dateFilter";
-                $profit_result = mysqli_query($conn, $profit_query);
-                $total_revenue = mysqli_fetch_assoc($profit_result)['total_revenue'];
+                // Menghitung total revenue (total pendapatan dari transaksi berdasarkan subtotal di transaction_items)
+                    $profit_query = "SELECT SUM(subtotal) AS total_revenue
+                    FROM transaction_items
+                    WHERE EXISTS (
+                        SELECT 1 FROM transactions 
+                        WHERE transactions.transactions_id = transaction_items.transaction_id 
+                        AND $dateFilter
+                    )";
+                    $profit_result = mysqli_query($conn, $profit_query);
+                    $total_revenue = mysqli_fetch_assoc($profit_result)['total_revenue'];
 
-                $cost_query = "SELECT SUM(quantity * price) AS total_cost
-                                FROM transaction_items
-                                WHERE EXISTS (SELECT 1 FROM transactions WHERE transactions_id = transaction_items.transaction_id AND $dateFilter)";
-                $cost_result = mysqli_query($conn, $cost_query);
-                $total_cost = mysqli_fetch_assoc($cost_result)['total_cost'];
+                    // Menghitung total cost (total biaya barang dari harga asli dan kuantitas)
+                    $cost_query = "SELECT SUM(ti.quantity * p.original_price) AS total_cost
+                    FROM transaction_items ti
+                    JOIN products p ON ti.product_id = p.product_id
+                    WHERE EXISTS (
+                    SELECT 1 FROM transactions 
+                    WHERE transactions.transactions_id = ti.transaction_id 
+                    AND $dateFilter
+                    )";
+                    $cost_result = mysqli_query($conn, $cost_query);
+                    $total_cost = mysqli_fetch_assoc($cost_result)['total_cost'];
 
-                $profit = $total_revenue - $total_cost;
+                    // Menghitung profit (untung)
+                    $profit = $total_revenue - $total_cost;
                 ?>
 
                 <h3>Profit Calculation</h3>
-                <p>Total Revenue: <?= number_format($total_revenue, 2) ?></p>
-                <p>Total Cost: <?= number_format($total_cost, 2) ?></p>
-                <!-- <p>Profit: <?= number_format($profit, 2) ?></p> -->
+                    <p>Total Revenue: <?= number_format($total_revenue ?? 0, 2) ?></p>
+                    <p>Total Cost: <?= number_format($total_cost ?? 0, 2) ?></p>
+                    <p>Profit: <?= number_format(($total_revenue ?? 0) - ($total_cost ?? 0), 2) ?></p>
             </div>
-            
         </div>
-        
-
-        <!-- Form filter -->
-        
     </div>
 </body>
 </html>
