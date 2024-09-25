@@ -1,9 +1,22 @@
 <?php
 session_start();
+require '../config/config.php';
 
 if (!isset($_SESSION['store_id'])) {
     echo "<script>alert('Tidak ada toko yang dipilih. Silakan pilih atau buat toko terlebih dahulu.'); window.location.href = '../pages/dashboard-page.php';</script>";
     exit;
+}
+
+$store_id = $_SESSION['store_id'];
+$query = "SELECT store_name FROM stores WHERE store_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $store_id); // Bind parameter
+$stmt->execute();
+$result = $stmt->get_result();
+$store = $result->fetch_assoc();
+
+if ($store) {
+    $_SESSION['store_name'] = $store['store_name'];
 }
 
 
@@ -74,9 +87,14 @@ if (!isset($_SESSION['store_id'])) {
             <?php include 'sidebar.php' ?>
         </div>
         <div class="content">
-            <div class="judul">
-                <h2>Store Page</h2>
-            </div>
+        <div class="judul">
+    <h2>Store Page</h2>
+    <?php
+    if (isset($_SESSION['store_name'])) {
+        echo "<h3>Toko : " . htmlspecialchars($_SESSION['store_name']) . "</h3>";
+    }
+    ?>
+</div>
             <div class="deskripsi">
                 <a href="addproducts-page.php">Tambah Product</a>
                 <a href="addcashier-page.php">Tambah Kasir</a>

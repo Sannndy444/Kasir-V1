@@ -163,7 +163,7 @@ $product_result = mysqli_query($conn, $product_query);
             color: var(--primary);
         }
 
-        #customer-name {
+        #customer-name, #customer-address, #customer-phone {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -217,7 +217,12 @@ $product_result = mysqli_query($conn, $product_query);
 
             <h2>Transaction List</h2>
                 <div id="transaction-list">
-                    <input type="text" id="customer-name" placeholder="Enter customer name">
+                    <input type="text" id="customer-name" placeholder="Enter customer name" oninput="toggleCustomerDetails()">
+                        <div id="customer-details" style="display: none;">
+                            <input type="text" id="customer-address" placeholder="Enter customer address">
+                            <input type="text" id="customer-phone" placeholder="Enter customer phone number">
+                        </div>
+
                     <ul id="transaction-items"></ul>
                     <p>Total: <span id="total-price">0</span></p>
                     <button class="checkout" onclick="checkout()">Checkout</button>
@@ -284,8 +289,23 @@ $product_result = mysqli_query($conn, $product_query);
             document.getElementById('total-price').textContent = totalPrice;
         }
 
+        function toggleCustomerDetails() {
+            const customerName = document.getElementById('customer-name').value;
+            const customerDetails = document.getElementById('customer-details');
+            
+            if (customerName.trim() !== "") {
+                customerDetails.style.display = 'block';
+            } else {
+                customerDetails.style.display = 'none';
+                document.getElementById('customer-address').value = '';  // Reset address input
+                document.getElementById('customer-phone').value = '';    // Reset phone input
+            }
+        }
+
         function checkout() {
             const customerName = document.getElementById('customer-name').value || 'Anonymous'; // Default nama customer jika tidak diisi
+            const customerAddress = document.getElementById('customer-address').value || 'Anonymous';
+            const customerPhone = document.getElementById('customer-phone').value || 'Anonymous';
 
             console.log('Checkout initiated with items:', transactionItems); // Debug log
             console.log('Customer name:', customerName); // Debug log
@@ -298,7 +318,9 @@ $product_result = mysqli_query($conn, $product_query);
                 },
                 body: JSON.stringify({
                     transactionItems: transactionItems,
-                    customerName: customerName
+                    customerName: customerName,
+                    customerAddress: customerAddress,
+                    customerPhone: customerPhone
                 })
             })
             .then(response => response.json())
@@ -310,6 +332,7 @@ $product_result = mysqli_query($conn, $product_query);
                     totalPrice = 0;
                     renderTransactionList();
                     document.getElementById('customer-name').value = ''; // Reset nama customer
+                    toggleCustomerDetails(); // Reset details form
                 } else {
                     alert('Transaction failed: ' + data.message);
                 }
@@ -318,6 +341,7 @@ $product_result = mysqli_query($conn, $product_query);
                 console.error('Error:', error);
             });
         }
+
     </script>
 </body>
 </html>

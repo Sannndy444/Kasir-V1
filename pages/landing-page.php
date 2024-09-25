@@ -30,11 +30,11 @@
         }
 
         .welcome {
-            padding: 1rem 0;
+            padding: 14rem 0 0 0;
         }
 
         .welcome h2 {
-            font-size: 2rem;
+            font-size: 5rem;
             color: var(--font);
         }
 
@@ -77,6 +77,10 @@
                 padding: 5rem 0 0 0;  /* Reduce padding for smaller screens */
             }
 
+            .welcome h2 {
+                font-size: 3rem;
+            }
+
             .welcome img {
                 width: 100%;  /* Make image responsive */
                 max-width: 300px;
@@ -91,11 +95,11 @@
 <body>
     <div class="container">
         <div class="welcome">
-            <h2>Selamat Datang Di KaSi</h2>
+            <h2>Selamat Datang <br> Di Kasir Simple</h2>
             <img src="../assets/2.png" alt="" width="300">
         </div>
         <div class="signup">
-            <a href="pages/signup-page.php"><button type="button">Sign Up</button></a>
+            <a href="pages/signup-page.php"><button type="button">Join With Us</button></a>
         </div>
 
         

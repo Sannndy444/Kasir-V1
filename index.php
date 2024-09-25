@@ -351,9 +351,10 @@ if(!empty($_SESSION["id"])){
                 </div>
                 <div class="nav">
                     <ul class="navB">
-                        <li><a href="#about">Tentang Kami</a></li>
+                        <!-- <li><a href="#about">Tentang Kami</a></li>
                         <li><a href="#fitur">Fitur Kami</a></li>
-                        <li><a href="#contact">Hubungi Kami</a></li>
+                        <li><a href="#contact">Hubungi Kami</a></li> -->
+                        <li><a href="pages/login-page.php">Log In</a></li>
                         <li><a href="pages/signup-page.php">SignUp</a></li>
                     </ul>
                 </div>
@@ -362,9 +363,10 @@ if(!empty($_SESSION["id"])){
         </header>
         <div class="sidebar" id="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
-        <a href="#about">Tentang Kami</a>
+        <!-- <a href="#about">Tentang Kami</a>
         <a href="#fitur">Fitur Kami</a>
-        <a href="#contact">Hubungi Kami</a>
+        <a href="#contact">Hubungi Kami</a> -->
+        <a href="pages/login-page.php">Log In</a>
         <a href="pages/signup-page.php">Sign Up</a>
     </div>
         

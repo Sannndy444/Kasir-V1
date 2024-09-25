@@ -104,6 +104,10 @@ include '../process/product.php';
             text-decoration: none;
         }
 
+        .tabel-product p {
+            text-align: center;
+        }
+
         .tabel-product .edit-btn {
             background-color: var(--nav);
             color: white;
@@ -169,7 +173,7 @@ include '../process/product.php';
                     }
                     echo '</table>';
                 } else {
-                    echo 'No products available.';
+                    echo '<p>No products available.</p>';
                 }
                 ?>
             </div>
